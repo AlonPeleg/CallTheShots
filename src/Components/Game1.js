@@ -47,6 +47,7 @@ export default class Game1 extends Component {
     let flag = 0;
     let winner = 0;
 
+    //ball going to the corner
     this.interval = setInterval(() => {
       if (flag == 0) {
         winner = 4;

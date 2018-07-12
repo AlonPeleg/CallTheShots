@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, Button, Image, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity, Dimensions } from "react-native";
 
+let playerCount = 0;
 export default class AddFriendsPage extends Component {
   constructor(props) {
     super(props);
@@ -8,9 +9,8 @@ export default class AddFriendsPage extends Component {
       photos: []
     };
   }
-
   componentWillMount() {
-    console.log(this.props.navigation.getParam("photo"));
+
   }
 
   changePhoto = photo => {
@@ -41,9 +41,13 @@ export default class AddFriendsPage extends Component {
   render() {
     console.log(this.props.navigation.getParam("photo", "hello"));
     return (
-      <View style={styles.containerStyle}>
-        <Text> This is the second page </Text>
+
+      <View>
+        <View style={{ top: HEIGHTMIDDLE - 100, left: 50 }}>
+          <Text>{playerCount}/4</Text>
+        </View>
         <TouchableOpacity
+          style={{ top: HEIGHTMIDDLE - 150, left: WIDTHMIDDLE - 30 }}
           onPress={this.goPlay}
         >
           <Image
@@ -51,23 +55,25 @@ export default class AddFriendsPage extends Component {
             source={require("../images/bottleButton.png")}
           />
         </TouchableOpacity>
-        <Button
-          title="Camera"
-          onPress={() => {
-            this.props.navigation.navigate("cameraPage");
-          }}
-        />
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={{
-            uri:
-              "https://facebook.github.io/react-native/docs/assets/favicon.png"
-          }}
-        />
+        <TouchableOpacity
+          style={{ top: HEIGHT - 150, left: WIDTH - 55 }}
+          onPress={() => { this.props.navigation.navigate("cameraPage") }}
+        >
+          <Image
+            style={{ height: 50, width: 50 }}
+            source={require("../images/addPicture.png")}
+          />
+        </TouchableOpacity>
+
       </View>
     );
   }
 }
+
+const WIDTHMIDDLE = Dimensions.get("window").width / 2;
+const HEIGHTMIDDLE = Dimensions.get("window").height / 2;
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
 
 const styles = {
   containerStyle: {
@@ -75,11 +81,8 @@ const styles = {
     alignItems: "center",
     justifyContent: "center"
   },
-  imageStyle: {
-    flex: 1,
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center"
-  },
+  players: {
+    top: HEIGHT - 50,
+    left: WIDTHMIDDLE
+  }
 };

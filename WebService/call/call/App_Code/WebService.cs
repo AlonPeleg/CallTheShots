@@ -56,4 +56,13 @@ public class WebService : System.Web.Services.WebService
         con.Close();
         return k;
     }
+    [WebMethod]
+    public int getPlayers()
+    {
+        cmd = new SqlCommand("select COUNT(ID) from Images", con);
+        con.Open();
+        int k = cmd.ExecuteNonQuery();
+        con.Close();
+        return k;
+    }
 }

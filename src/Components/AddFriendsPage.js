@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Button, Image } from "react-native";
-import { Body } from "native-base";
+import { View, Text, Button, Image, TouchableOpacity } from "react-native";
 
 export default class AddFriendsPage extends Component {
   constructor(props) {
@@ -44,7 +43,14 @@ export default class AddFriendsPage extends Component {
     return (
       <View style={styles.containerStyle}>
         <Text> This is the second page </Text>
-        <Button title="Play" onPress={this.goPlay} />
+        <TouchableOpacity
+          onPress={this.goPlay}
+        >
+          <Image
+            style={{ width: 70, height: 70 }}
+            source={require("../images/bottleButton.png")}
+          />
+        </TouchableOpacity>
         <Button
           title="Camera"
           onPress={() => {
@@ -75,5 +81,5 @@ const styles = {
     height: 50,
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
 };

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Image, Text, TouchableOpacity, Dimensions } from "react-native";
 
-let playerCount = 0;
+
 export default class AddFriendsPage extends Component {
   constructor(props) {
     super(props);
@@ -9,13 +9,7 @@ export default class AddFriendsPage extends Component {
       photos: []
     };
   }
-  componentWillMount() {
 
-  }
-
-  changePhoto = photo => {
-    this.setState({ photo: photo }, console.log(photo));
-  };
 
   static navigationOptions = {
     header: null
@@ -38,13 +32,14 @@ export default class AddFriendsPage extends Component {
     //console.warn(this.state.photos[0].Image);
     this.props.navigation.navigate("fourGame", { images: this.state.photos });
   };
+
   render() {
     console.log(this.props.navigation.getParam("photo", "hello"));
     return (
 
       <View>
         <View style={{ top: HEIGHTMIDDLE - 100, left: 50 }}>
-          <Text>{playerCount}/4</Text>
+          <Text>0/4</Text>
         </View>
         <TouchableOpacity
           style={{ top: HEIGHTMIDDLE - 150, left: WIDTHMIDDLE - 30 }}
@@ -64,7 +59,6 @@ export default class AddFriendsPage extends Component {
             source={require("../images/addPicture.png")}
           />
         </TouchableOpacity>
-
       </View>
     );
   }

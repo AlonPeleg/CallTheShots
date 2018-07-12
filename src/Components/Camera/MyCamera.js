@@ -13,7 +13,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 class MyCamera extends Component {
     constructor(props) {
         super(props)
-       
+
     }
 
     state = {
@@ -30,22 +30,21 @@ class MyCamera extends Component {
     snap = async () => {
         if (this.camera) {
             let photo = await this.camera.takePictureAsync();
-            console.warn(photo.uri);
-           await this.setState({ photo: photo.uri }, console.log(this.state.photo));
-           fetch('http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/insertNewImage',{
-               method:'POST',
-               headers:{
-                   Accept:'application/json',
-                   'Content-Type':'application/json',
-               },
-               body:JSON.stringify({
-                imageUri:photo.uri
-               })
-           }).then(()=>console.log('it did something'));
-           this.props.navigation.navigate('friendsPage');
-        //    await this.props.navigation.navigate('friendsPage', { 
-        //    photo: photo.uri
-        // });
+            await this.setState({ photo: photo.uri }, console.log(this.state.photo));
+            fetch('http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/insertNewImage', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    imageUri: photo.uri
+                })
+            }).then(() => console.log('it did something'));
+            this.props.navigation.navigate('friendsPage');
+            //    await this.props.navigation.navigate('friendsPage', { 
+            //    photo: photo.uri
+            // });
 
         }
     }

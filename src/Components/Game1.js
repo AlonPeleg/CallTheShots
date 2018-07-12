@@ -81,7 +81,9 @@ export default class Game1 extends Component {
           [
             {
               text: "Go to Lobby",
-              onPress: () => {
+              onPress: async () => {
+                let res = await fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
+                console.warn(res);
                 this.props.navigation.navigate("friendsPage");
               }
             }

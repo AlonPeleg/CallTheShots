@@ -30,7 +30,7 @@ export default class AddFriendsPage extends Component {
     let theJson = JSON.parse(json.d);
     this.setState({ photos: theJson });
     //console.warn(this.state.photos[0].Image);
-    this.props.navigation.navigate("fourGame", { images: this.state.photos });
+    this.props.navigation.navigate("fourGame", { images: this.state.photos});
   };
 
   render() {

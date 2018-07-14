@@ -1,44 +1,40 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import React, { Component } from "react";
+import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 
-import Header from './Header';
-import BackgroundImage from './BackgroundImage';
+import BackgroundImage from "./BackgroundImage";
 
 export default class HomePage extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props)
+    this.state = {};
+  }
 
-        this.state = {
-
-        };
-    };
-
-
-
-    render() {
-        return (
-            <View style={styles.containerStyle}>
-                <BackgroundImage />
-                <Header />
-                <TouchableOpacity
-                    style={styles.buttonStyle}
-                    onPress={() => { this.props.navigation.navigate('homeGame') }} />
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={styles.containerStyle}>
+        <BackgroundImage />
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => {
+            this.props.navigation.navigate("homeGame");
+          }}
+        />
+      </View>
+    );
+  }
 }
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
 const styles = {
-    containerStyle: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttonStyle: {
-        width: WIDTH,
-        height: HEIGHT,
-        position: 'absolute',
-    },
-}
+  containerStyle: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  buttonStyle: {
+    width: WIDTH,
+    height: HEIGHT,
+    position: "absolute"
+  }
+};

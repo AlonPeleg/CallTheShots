@@ -5,7 +5,7 @@ import { Constants } from 'expo';
 const BackgroundImage = () => {
     const { containerStyle } = styles;
     return (
-        <Image source={require('../images/backgroundImg.jpg')} style={containerStyle} />
+        <Image source={require('../images/backgroundImgMain.jpg')} style={containerStyle} />
     );
 };
 const WIDTH = Dimensions.get('window').width;

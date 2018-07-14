@@ -82,7 +82,9 @@ export default class Game1 extends Component {
             {
               text: "Go to Lobby",
               onPress: async () => {
-                let res = await fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
+                let res = await fetch(
+                  "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages"
+                );
                 this.props.navigation.navigate("friendsPage");
               }
             }
@@ -102,6 +104,10 @@ export default class Game1 extends Component {
   render() {
     return (
       <View>
+        <Image
+          style={styles.backgroundStyle}
+          source={require("../images/backgroundImgGame1.jpg")}
+        />
         <View style={styles.generalPos}>
           <Animated.View style={this.pos1.getLayout()}>
             <Image
@@ -165,5 +171,11 @@ const styles = {
     width: 30,
     left: WIDTHMIDDLE - 15,
     top: HEIGHTMIDDLE - 15
+  },
+  backgroundStyle:{
+    width: WIDTH,
+    height: HEIGHT,
+    position: 'absolute',
+    resizeMode: 'cover',
   }
 };

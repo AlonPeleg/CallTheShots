@@ -39,7 +39,7 @@ export default class Game3 extends Component {
                 });
             if (this.state.marioKart >= 300) {
                 clearInterval(this.interval);
-                this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[0].Image })
+                this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[1].Image })
                 this.timeOut = setTimeout(() => {
                     this.props.navigation.navigate("friendsPage");
                 }, 4000);
@@ -47,7 +47,7 @@ export default class Game3 extends Component {
 
             } else if (this.state.luigiKart >= 300) {
                 clearInterval(this.interval);
-                this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[1].Image })
+                this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[0].Image })
                 this.timeOut = setTimeout(() => {
                     this.props.navigation.navigate("friendsPage");
 
@@ -164,7 +164,7 @@ export default class Game3 extends Component {
                             }}
                         >
                             <Text style={{ fontSize: 25, color: "white", textAlign: 'center' }}>
-                                Race Winner
+                                Loser!
                             </Text>
                             <Image
                                 style={styles.winner}
@@ -191,7 +191,7 @@ const styles = {
         height: 170,
         resizeMode: "contain",
         position: "absolute",
-        left: 65,
+        left: 70,
         top: 72
     },
     mario: {

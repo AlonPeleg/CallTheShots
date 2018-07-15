@@ -40,10 +40,18 @@ export default class Game3 extends Component {
             if (this.state.marioKart >= 300) {
                 clearInterval(this.interval);
                 this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[0].Image })
+                this.timeOut = setTimeout(() => {
+                    this.props.navigation.navigate("friendsPage");
+                }, 4000);
+
 
             } else if (this.state.luigiKart >= 300) {
                 clearInterval(this.interval);
                 this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[1].Image })
+                this.timeOut = setTimeout(() => {
+                    this.props.navigation.navigate("friendsPage");
+
+                }, 4000);
 
             }
         }, 60);
@@ -52,7 +60,7 @@ export default class Game3 extends Component {
         this.setState({ rush: 15 });
     };
 
-    loadImages = async () => {
+    loadImages = () => {
         return Promise.all([
             require("../images/road.png"),
             require("../images/bros.png"),
@@ -155,16 +163,9 @@ export default class Game3 extends Component {
                                 backgroundColor: "rgb(140, 220, 248)"
                             }}
                         >
-                            <Button
-                                title="Close"
-                                onPress={() => {
-                                    this.setState({ modalVisible: false });
-                                    this.props.navigation.navigate("friendsPage");
-                                }}
-                            />
                             <Text style={{ fontSize: 25, color: "white", textAlign: 'center' }}>
                                 Race Winner
-                </Text>
+                            </Text>
                             <Image
                                 style={styles.winner}
                                 source={{ uri: this.state.winner }}
@@ -180,16 +181,17 @@ const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 const styles = {
     lightning: {
-        marginTop: 470,
-        height: 40,
-        width: 80
+        marginTop: 420,
+        marginLeft: 150,
+        height: 50,
+        width: 50
     },
     winner: {
         width: 170,
-        height: 90,
+        height: 170,
         resizeMode: "contain",
         position: "absolute",
-        right: 130,
+        left: 65,
         top: 72
     },
     mario: {
@@ -225,7 +227,7 @@ const styles = {
         position: "absolute",
         left: 45,
         top: 50,
-        },
+    },
     sky: {
         backgroundColor: "lightblue",
         height: 300,

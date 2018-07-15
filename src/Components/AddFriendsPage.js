@@ -13,6 +13,7 @@ export default class AddFriendsPage extends Component {
 componentDidMount(){
   this.refreshPlayerCount();
 }
+
   static navigationOptions = {
     header: null
   };
@@ -54,8 +55,9 @@ componentDidMount(){
     //console.warn(this.state.photos[0].Image);
     this.props.navigation.navigate("twoGame", { images: this.state.photos });
   };
-  deleteImages = () => {
-    fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
+  deleteImages =async  () => {
+   await fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
+   this.refreshPlayerCount();
   }
   refreshPlayerCount = async () => {
     let res = await fetch(
@@ -73,6 +75,25 @@ componentDidMount(){
     let theJson = JSON.parse(json.d);
     this.setState({ playerCounter: theJson })
   }
+  checkPlayersFours=async()=>{
+    await this.refreshPlayerCount();
+    if(this.state.playerCounter==4)
+    {
+      this.goPlay();
+    }
+    else {
+      console.warn("not enough players for 4");
+    }
+  }
+  checkPlayersTwos = async () => {
+    await this.refreshPlayerCount();
+    if (this.state.playerCounter == 2) {
+      this.marioGame();
+    }
+    else {
+      console.warn("not enough players for 2");
+    }
+  }
   render() {
     return (
 
@@ -80,7 +101,7 @@ componentDidMount(){
         <Image source={require('../images/friendsBackground.jpg')} style={styles.backgroundStyle} />
         <TouchableOpacity
           style={{ top: HEIGHT - 200, left: WIDTHMIDDLE + 35 }}
-          onPress={this.goPlay}
+          onPress={this.checkPlayersFours}
         >
           <Image
             style={{ width: 70, height: 70, opacity: 0.7, }}
@@ -89,7 +110,7 @@ componentDidMount(){
         </TouchableOpacity>
         <TouchableOpacity
           style={{ top: HEIGHT - 270, left: WIDTHMIDDLE - 115, width: 70, height: 70 }}
-          onPress={this.marioGame}
+          onPress={this.checkPlayersTwos}
         >
           <Image
             style={{ width: 70, height: 70, opacity: 0.7 }}
@@ -98,7 +119,7 @@ componentDidMount(){
         </TouchableOpacity>
         <TouchableOpacity
           style={{ top: HEIGHT - 190, left: WIDTHMIDDLE - 25, width: 70, height: 70 }}
-          onPress={() => { this.props.navigation.navigate("cameraPage") }}
+          onPress={() => { this.props.navigation.navigate("cameraPage",{refreshfunction:this.refreshPlayerCount}) }}
         >
           <Image
             style={{ height: 40, width: 40, opacity: 0.6 }}
@@ -123,11 +144,8 @@ componentDidMount(){
             source={require("../images/refreshPlayers.png")}
           />
         </TouchableOpacity>
-        <View style={{ top: HEIGHT-470, left:WIDTHMIDDLE+30 }}>
-          <Text>Player Count: {this.state.playerCounter}/4</Text>
-        </View>
-        <View style={{ top: HEIGHT - 488, left: WIDTHMIDDLE - 120 }}>
-          <Text>Player Count: {this.state.playerCounter}/4</Text>
+        <View style={{ top: HEIGHT-450, left:WIDTHMIDDLE-60 }}>
+          <Text>Player Count: {this.state.playerCounter}</Text>
         </View>
       </View>
     );

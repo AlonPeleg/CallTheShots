@@ -37,7 +37,7 @@ export default class Game3 extends Component {
                 this.setState({
                     luigiKart: this.state.luigiKart + speed
                 });
-            if (this.state.marioKart >= 300) {
+            if (this.state.marioKart >= WIDTH-40) {
                 clearInterval(this.interval);
                 this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[1].Image })
                 this.timeOut = setTimeout(() => {
@@ -45,7 +45,7 @@ export default class Game3 extends Component {
                 }, 4000);
 
 
-            } else if (this.state.luigiKart >= 300) {
+            } else if (this.state.luigiKart >= WIDTH-40) {
                 clearInterval(this.interval);
                 this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[0].Image })
                 this.timeOut = setTimeout(() => {
@@ -179,10 +179,12 @@ export default class Game3 extends Component {
 }
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
+const WIDTHMIDDLE = Dimensions.get("window").width / 2;
+const HEIGHTMIDDLE = Dimensions.get("window").height / 2;
 const styles = {
     lightning: {
         marginTop: 420,
-        marginLeft: 150,
+        marginLeft: WIDTHMIDDLE-30,
         height: 50,
         width: 50
     },

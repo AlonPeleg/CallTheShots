@@ -10,7 +10,9 @@ export default class AddFriendsPage extends Component {
       playerCounter: 0
     };
   }
-
+componentDidMount(){
+  this.refreshPlayerCount();
+}
   static navigationOptions = {
     header: null
   };
@@ -121,7 +123,10 @@ export default class AddFriendsPage extends Component {
             source={require("../images/refreshPlayers.png")}
           />
         </TouchableOpacity>
-        <View style={{ top: 200, left: -150 }}>
+        <View style={{ top: HEIGHT-470, left:WIDTHMIDDLE+30 }}>
+          <Text>Player Count: {this.state.playerCounter}/4</Text>
+        </View>
+        <View style={{ top: HEIGHT - 488, left: WIDTHMIDDLE - 120 }}>
           <Text>Player Count: {this.state.playerCounter}/4</Text>
         </View>
       </View>

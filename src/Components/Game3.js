@@ -158,7 +158,7 @@ export default class Game3 extends Component {
                         <View
                             style={{
                                 width: "85%",
-                                height: "30%",
+                                height: "37%",
                                 alignSelf: "center",
                                 backgroundColor: "rgb(140, 220, 248)"
                             }}
@@ -189,7 +189,6 @@ const styles = {
     winner: {
         width: 170,
         height: 170,
-        resizeMode: "contain",
         position: "absolute",
         left: 70,
         top: 72

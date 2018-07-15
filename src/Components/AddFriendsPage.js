@@ -74,9 +74,7 @@ export default class AddFriendsPage extends Component {
   };
 
   render() {
-    
-    console.log(this.props.navigation.getParam("photo", "hello"));
-    return (
+        return (
 
       <View>
         <Image source={require('../images/friendsBackground.jpg')} style={styles.backgroundStyle} />

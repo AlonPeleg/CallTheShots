@@ -6,14 +6,35 @@ export default class AddFriendsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: []
+      photos: [],
+      playerCounter:0
     };
   }
 
+  async componentDidMount() {
+
+    let res = await fetch(
+      "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/getPlayers",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    let json = await res.json();
+    console.warn(json.d);
+    let theJson = JSON.parse(json.d);
+    this.setState({playerCounter:theJson})
+  }
 
   static navigationOptions = {
     header: null
   };
+
+
   goPlay = async () => {
     let res = await fetch(
       "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/getPhotoUri",
@@ -53,6 +74,7 @@ export default class AddFriendsPage extends Component {
   };
 
   render() {
+    
     console.log(this.props.navigation.getParam("photo", "hello"));
     return (
 
@@ -68,7 +90,7 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 270, left: WIDTHMIDDLE - 115 }}
+          style={{ top: HEIGHT - 270, left: WIDTHMIDDLE - 115, width: 70, height: 70 }}
           onPress={this.marioGame}
         >
           <Image
@@ -77,15 +99,17 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 245, left: WIDTHMIDDLE - 25, opacity: 0.6 }}
+          style={{ top: HEIGHT - 245, left: WIDTHMIDDLE - 25, width: 70, height: 70 }}
           onPress={() => { this.props.navigation.navigate("cameraPage") }}
         >
           <Image
-            style={{ height: 40, width: 40 }}
+            style={{ height: 40, width: 40, opacity: 0.6 }}
             source={require("../images/addPicture.png")}
           />
         </TouchableOpacity>
-
+        <View style={{ top: 5, right: 50 }}>
+          <Text>{this.state.playerCounter}/4</Text>
+        </View>
       </View>
     );
   }

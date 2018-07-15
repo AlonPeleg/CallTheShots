@@ -41,7 +41,7 @@ class MyCamera extends Component {
                     imageUri: photo.uri
                 })
             }).then(() => console.log('it did something'));
-            this.props.navigation.navigate('friendsPage');
+            this.props.navigation.navigate("friendsPage");
         }
     }
     render() {

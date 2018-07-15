@@ -14,29 +14,29 @@ export default class Game1 extends Component {
     this.pos1 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos1, {
       toValue: {
-        x: WIDTHMIDDLE - 50,
-        y: HEIGHT - 90
+        x: WIDTHMIDDLE - 49.5,
+        y: HEIGHT - 134
       }
     }).start();
     this.pos2 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos2, {
       toValue: {
-        x: -WIDTHMIDDLE + 50,
-        y: HEIGHT - 90
+        x: -WIDTHMIDDLE + 52,
+        y: HEIGHT - 134
       }
     }).start();
     this.pos3 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos3, {
       toValue: {
-        x: -WIDTHMIDDLE + 50,
-        y: 10
+        x: -WIDTHMIDDLE + 52,
+        y:10.5
       }
     }).start();
     this.pos4 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos4, {
       toValue: {
-        x: WIDTHMIDDLE - 50,
-        y: 10
+        x: WIDTHMIDDLE - 49.5,
+        y:10.5
       }
     }).start();
 
@@ -52,7 +52,7 @@ export default class Game1 extends Component {
       if (flag == 0) {
         winner = 4;
         Animated.spring(this.ballMov, {
-          toValue: { x: -WIDTHMIDDLE + 100, y: HEIGHTMIDDLE - 100 }
+          toValue: { x: -WIDTHMIDDLE + 100, y: HEIGHTMIDDLE - 140 }
         }).start();
         flag = Math.floor(Math.random() * 4);
       } else if (flag == 1) {
@@ -64,7 +64,7 @@ export default class Game1 extends Component {
       } else if (flag == 2) {
         winner = 3;
         Animated.spring(this.ballMov, {
-          toValue: { x: WIDTHMIDDLE - 100, y: HEIGHTMIDDLE - 100 }
+          toValue: { x: WIDTHMIDDLE - 100, y: HEIGHTMIDDLE - 140 }
         }).start();
         flag = Math.floor(Math.random() * 4);
       } else if (flag == 3) {
@@ -75,22 +75,22 @@ export default class Game1 extends Component {
         flag = Math.floor(Math.random() * 4);
       } else if (flag == -1) {
         clearInterval(this.interval);
-        Alert.alert(
-          "WINNER WINNER CHICKEN DINNER!",
-          "the winner is: Player #" + winner.valueOf(),
-          [
-            {
-              text: "Go to Lobby",
-              onPress: async () => {
-                let res = await fetch(
-                  "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages"
-                );
-                this.props.navigation.navigate("friendsPage");
-              }
-            }
-          ],
-          { cancelable: false }
-        );
+        // Alert.alert(
+        //   "WINNER WINNER CHICKEN DINNER!",
+        //   "the winner is: Player #" + winner.valueOf(),
+        //   [
+        //     {
+        //       text: "Go to Lobby",
+        //       onPress: async () => {
+        //         let res = await fetch(
+        //           "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages"
+        //         );
+        //         this.props.navigation.navigate("friendsPage");
+        //       }
+        //     }
+        //   ],
+        //   { cancelable: false }
+        // );
       }
     }, 300);
     this.timerInt = setInterval(() => {

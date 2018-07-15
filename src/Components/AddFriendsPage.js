@@ -30,7 +30,26 @@ export default class AddFriendsPage extends Component {
     let theJson = JSON.parse(json.d);
     this.setState({ photos: theJson });
     //console.warn(this.state.photos[0].Image);
-    this.props.navigation.navigate("fourGame", { images: this.state.photos});
+    this.props.navigation.navigate("fourGame", { images: this.state.photos });
+  };
+
+  marioGame = async () => {
+    let res = await fetch(
+      "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/getPhotoUri",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    let json = await res.json();
+    let theJson = JSON.parse(json.d);
+    this.setState({ photos: theJson });
+    //console.warn(this.state.photos[0].Image);
+    this.props.navigation.navigate("twoGame", { images: this.state.photos });
   };
 
   render() {
@@ -51,7 +70,16 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 150, left: WIDTH - 55 }}
+          style={{ top: HEIGHTMIDDLE - 150, left: WIDTHMIDDLE - 30 }}
+          onPress={this.marioGame}
+        >
+          <Image
+            style={{ width: 70, height: 70 }}
+            source={require("../images/marioButton.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ top: HEIGHT - 300, left: WIDTH - 55 }}
           onPress={() => { this.props.navigation.navigate("cameraPage") }}
         >
           <Image

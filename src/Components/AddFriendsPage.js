@@ -7,27 +7,8 @@ export default class AddFriendsPage extends Component {
     super(props);
     this.state = {
       photos: [],
-      playerCounter:0
+      playerCounter: 0
     };
-  }
-
-  async componentDidMount() {
-
-    let res = await fetch(
-      "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/getPlayers",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      }
-    );
-
-    let json = await res.json();
-    console.warn(json.d);
-    let theJson = JSON.parse(json.d);
-    this.setState({playerCounter:theJson})
   }
 
   static navigationOptions = {
@@ -65,16 +46,33 @@ export default class AddFriendsPage extends Component {
         }
       }
     );
-
     let json = await res.json();
     let theJson = JSON.parse(json.d);
     this.setState({ photos: theJson });
     //console.warn(this.state.photos[0].Image);
     this.props.navigation.navigate("twoGame", { images: this.state.photos });
   };
+  deleteImages = () => {
+    fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
+  }
+  refreshPlayerCount = async () => {
+    let res = await fetch(
+      "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/getPlayers",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
+    let json = await res.json();
+    let theJson = JSON.parse(json.d);
+    this.setState({ playerCounter: theJson })
+  }
   render() {
-        return (
+    return (
 
       <View>
         <Image source={require('../images/friendsBackground.jpg')} style={styles.backgroundStyle} />
@@ -97,7 +95,7 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 245, left: WIDTHMIDDLE - 25, width: 70, height: 70 }}
+          style={{ top: HEIGHT - 190, left: WIDTHMIDDLE - 25, width: 70, height: 70 }}
           onPress={() => { this.props.navigation.navigate("cameraPage") }}
         >
           <Image
@@ -105,8 +103,26 @@ export default class AddFriendsPage extends Component {
             source={require("../images/addPicture.png")}
           />
         </TouchableOpacity>
-        <View style={{ top: 5, right: 50 }}>
-          <Text>{this.state.playerCounter}/4</Text>
+        <TouchableOpacity
+          style={{ top: HEIGHT - 260, left: WIDTHMIDDLE - 100, width: 70, height: 70 }}
+          onPress={this.deleteImages}
+        >
+          <Image
+            style={{ height: 40, width: 40, opacity: 0.6 }}
+            source={require("../images/deleteImagesPic.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ top: HEIGHT - 331, left: WIDTHMIDDLE + 50, width: 70, height: 70 }}
+          onPress={this.refreshPlayerCount}
+        >
+          <Image
+            style={{ height: 40, width: 40, opacity: 0.6 }}
+            source={require("../images/refreshPlayers.png")}
+          />
+        </TouchableOpacity>
+        <View style={{ top: 200, left: -150 }}>
+          <Text>Player Count: {this.state.playerCounter}/4</Text>
         </View>
       </View>
     );

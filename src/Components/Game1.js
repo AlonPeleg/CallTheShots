@@ -14,28 +14,28 @@ export default class Game1 extends Component {
     this.pos1 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos1, {
       toValue: {
-        x: WIDTHMIDDLE - 49.5,
+        x: WIDTHMIDDLE - 50.5,
         y: HEIGHT - 134
       }
     }).start();
     this.pos2 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos2, {
       toValue: {
-        x: -WIDTHMIDDLE + 52,
+        x: -WIDTHMIDDLE + 50,
         y: HEIGHT - 134
       }
     }).start();
     this.pos3 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos3, {
       toValue: {
-        x: -WIDTHMIDDLE + 52,
+        x: -WIDTHMIDDLE + 50,
         y:10.5
       }
     }).start();
     this.pos4 = new Animated.ValueXY(0, 0);
     Animated.spring(this.pos4, {
       toValue: {
-        x: WIDTHMIDDLE - 49.5,
+        x: WIDTHMIDDLE - 50.5,
         y:10.5
       }
     }).start();

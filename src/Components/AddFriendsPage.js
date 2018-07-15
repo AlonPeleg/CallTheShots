@@ -57,36 +57,35 @@ export default class AddFriendsPage extends Component {
     return (
 
       <View>
-        <View style={{ top: HEIGHTMIDDLE - 100, left: 50 }}>
-          <Text>0/4</Text>
-        </View>
+        <Image source={require('../images/friendsBackground.jpg')} style={styles.backgroundStyle} />
         <TouchableOpacity
-          style={{ top: HEIGHTMIDDLE - 150, left: WIDTHMIDDLE - 30 }}
+          style={{ top: HEIGHT - 200, left: WIDTHMIDDLE + 35 }}
           onPress={this.goPlay}
         >
           <Image
-            style={{ width: 70, height: 70 }}
+            style={{ width: 70, height: 70, opacity: 0.7, }}
             source={require("../images/bottleButton.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHTMIDDLE - 150, left: WIDTHMIDDLE - 30 }}
+          style={{ top: HEIGHT - 270, left: WIDTHMIDDLE - 115 }}
           onPress={this.marioGame}
         >
           <Image
-            style={{ width: 70, height: 70 }}
+            style={{ width: 70, height: 70, opacity: 0.7 }}
             source={require("../images/marioButton.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 300, left: WIDTH - 55 }}
+          style={{ top: HEIGHT - 245, left: WIDTHMIDDLE - 25, opacity: 0.6 }}
           onPress={() => { this.props.navigation.navigate("cameraPage") }}
         >
           <Image
-            style={{ height: 50, width: 50 }}
+            style={{ height: 40, width: 40 }}
             source={require("../images/addPicture.png")}
           />
         </TouchableOpacity>
+
       </View>
     );
   }
@@ -106,5 +105,11 @@ const styles = {
   players: {
     top: HEIGHT - 50,
     left: WIDTHMIDDLE
-  }
+  },
+  backgroundStyle: {
+    width: WIDTH,
+    height: HEIGHT,
+    position: 'absolute',
+    resizeMode: 'cover',
+  },
 };

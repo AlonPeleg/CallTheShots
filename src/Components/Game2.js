@@ -70,8 +70,8 @@ export default class Game2 extends Component {
                         position: "absolute",
                         top: 362,
                         left: 128,
-                        height: 65,
-                        width: 120,
+                        width: 65,
+                        height: 120,
                         transform: [{ rotate: this.state.arrowPos + "deg" }]
                     }}
                     source={require("../images/arrow.png")}

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, Text, Image, Dimensions } from 'react-native';
-import { Constants } from 'expo';
+import React from 'react';
+import { Image, Dimensions } from 'react-native';
+
 
 const BackgroundImage = () => {
     const { containerStyle } = styles;

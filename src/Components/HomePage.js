@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import { View, TouchableOpacity, Dimensions } from "react-native";
 
 import BackgroundImage from "./BackgroundImage";
 

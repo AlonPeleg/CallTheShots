@@ -9,6 +9,7 @@ import AddFriendsPage from './src/Components/AddFriendsPage';
 import Game1 from './src/Components/Game1';
 import MyCamera from './src/Components/Camera/MyCamera';
 import Game3 from './src/Components/Game3';
+import startingVideo from './src/Components/startingVideo';
 
 
 const stackNav = createStackNavigator(
@@ -21,6 +22,7 @@ const stackNav = createStackNavigator(
 
 const SwitchNav = createSwitchNavigator(
   {
+    welcomeVideo:startingVideo,
     welcomePage: HomePage,
     fourGame: Game1,
     twoGame:Game3,

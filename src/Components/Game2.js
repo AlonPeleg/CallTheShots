@@ -70,19 +70,22 @@ export default class Game2 extends Component {
         }
         else if (won > 120 && won < 240) {
             this.setState({ BGC: "rgba(91, 153, 212, 0.2)" })
-            winnerPlayer = 2;
+            winnerPlayer = 3;
         }
         else if (won == 120 || won == 240 || won == 360) {
             console.warn("Top kek")
         }
         else {
             this.setState({ BGC: "rgba(255, 190, 0, 0.2)" })
-            winnerPlayer = 3;
+            winnerPlayer = 2;
         }
         this.timeOut2 = setTimeout(() => {
             this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[winnerPlayer - 1].Image })
         }, 1000);
         this.timeOut = setTimeout(() => {
+            this.setState({ arrowPos: 0 });
+            timevar = 0;
+            tickCount = Math.floor(Math.random() * 5) + 2;
             this.props.navigation.navigate("friendsPage");
         }, 4000);
 
@@ -141,8 +144,8 @@ export default class Game2 extends Component {
                             alignSelf: "center",
                         }}
                     >
-                        <Text style={{ fontSize: 25, color: "white", textAlign: 'center', }}>
-                            You're It!
+                        <Text style={{ fontSize: 25, color: "white", textAlign: 'center',}}>
+                            You're Out!
                         </Text>
                         <Image
                             style={styles.winner}

@@ -7,11 +7,9 @@ import {
     ImageBackground,
     LayoutAnimation,
     TouchableOpacity,
-    Alert,
     Modal,
-    Button
 } from "react-native";
-import { AppLoading, Asset } from "expo";
+import { AppLoading } from "expo";
 
 export default class Game3 extends Component {
     state = {
@@ -165,7 +163,7 @@ export default class Game3 extends Component {
                             }}
                         >
                             <Text style={{ fontSize: 25, color: "white", textAlign: 'center' }}>
-                                Loser!
+                                You Lost!
                             </Text>
                             <Image
                                 style={styles.winner}

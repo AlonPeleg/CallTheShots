@@ -160,7 +160,8 @@ export default class Game3 extends Component {
                                 width: "85%",
                                 height: "37%",
                                 alignSelf: "center",
-                                backgroundColor: "rgb(140, 220, 248)"
+                                backgroundColor: "rgb(140, 220, 248)",
+                                top:10
                             }}
                         >
                             <Text style={{ fontSize: 25, color: "white", textAlign: 'center' }}>

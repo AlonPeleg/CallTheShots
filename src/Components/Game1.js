@@ -150,9 +150,10 @@ export default class Game1 extends Component {
               style={{
                 top: 160,
                 left: 2,
-                width: "66.5%",
-                height: "30%",
+                width: "70%",
+                height: "70%",
                 alignSelf: "center",
+                
 
               }}
             >

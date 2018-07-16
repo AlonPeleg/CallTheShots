@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Image, Text, TouchableOpacity, Dimensions,Alert,Modal } from "react-native";
+import { View, Image, Text, TouchableOpacity, Dimensions, Alert, Modal } from "react-native";
 
 
 export default class AddFriendsPage extends Component {
@@ -9,12 +9,12 @@ export default class AddFriendsPage extends Component {
       photos: [],
       playerCounter: 0,
       modalVisible: false,
-      errMsg:''
+      errMsg: ''
     };
   }
-componentDidMount(){
-  this.refreshPlayerCount();
-}
+  componentDidMount() {
+    this.refreshPlayerCount();
+  }
 
   static navigationOptions = {
     header: null
@@ -57,9 +57,9 @@ componentDidMount(){
     //console.warn(this.state.photos[0].Image);
     this.props.navigation.navigate("twoGame", { images: this.state.photos });
   };
-  deleteImages =async  () => {
-   await fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
-   this.refreshPlayerCount();
+  deleteImages = async () => {
+    await fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
+    this.refreshPlayerCount();
   }
   refreshPlayerCount = async () => {
     let res = await fetch(
@@ -76,28 +76,26 @@ componentDidMount(){
     let json = await res.json();
     let theJson = JSON.parse(json.d);
     this.setState({ playerCounter: theJson })
-   }
-  checkPlayersFours=async()=>{
+  }
+  checkPlayersFours = async () => {
     await this.refreshPlayerCount();
-    if(this.state.playerCounter>=4)
-    {
-      if(this.state.playerCounter>4)
-      {
-        this.setState({ modalVisible: true, errMsg: "There Are Extra Players" })
+    if (this.state.playerCounter >= 4) {
+      if (this.state.playerCounter > 4) {
+        this.setState({ modalVisible: true, errMsg: "There Are Extra Players\nOnly First Four Will Play" })
         this.timeOut = setTimeout(() => {
           this.setState({ modalVisible: false })
           this.goPlay();
-        }, 2500);
+        }, 3000);
       }
       else {
         this.goPlay();
       }
-      
+
     }
     else {
       this.setState({ modalVisible: true, errMsg: "Four Players Required" })
       this.timeOut = setTimeout(() => {
-        this.setState({modalVisible:false})
+        this.setState({ modalVisible: false })
       }, 2500);
     }
   }
@@ -105,11 +103,11 @@ componentDidMount(){
     await this.refreshPlayerCount();
     if (this.state.playerCounter >= 2) {
       if (this.state.playerCounter > 2) {
-        this.setState({ modalVisible: true, errMsg: "There Are Extra Players" })
+        this.setState({ modalVisible: true, errMsg: "There Are Extra Players\nOnly First Two Will Play" })
         this.timeOut = setTimeout(() => {
           this.setState({ modalVisible: false })
           this.marioGame();
-        }, 2500);
+        }, 3000);
       }
       else {
         this.marioGame();
@@ -147,7 +145,7 @@ componentDidMount(){
         </TouchableOpacity>
         <TouchableOpacity
           style={{ top: HEIGHT - 190, left: WIDTHMIDDLE - 25, width: 70, height: 70 }}
-          onPress={() => { this.props.navigation.navigate("cameraPage",{refreshfunction:this.refreshPlayerCount}) }}
+          onPress={() => { this.props.navigation.navigate("cameraPage", { refreshfunction: this.refreshPlayerCount }) }}
         >
           <Image
             style={{ height: 40, width: 40, opacity: 0.6 }}
@@ -172,7 +170,7 @@ componentDidMount(){
             source={require("../images/refreshPlayers.png")}
           />
         </TouchableOpacity>
-        <View style={{ top: HEIGHT-450, left:WIDTHMIDDLE-55 }}>
+        <View style={{ top: HEIGHT - 450, left: WIDTHMIDDLE - 55 }}>
           <Text>Player Count: {this.state.playerCounter}</Text>
         </View>
         <Modal
@@ -189,15 +187,15 @@ componentDidMount(){
               height: "20%",
               alignSelf: "center",
               backgroundColor: "rgba(240, 240, 241,0.7)",
-              justifyContent:'center',
-              alignItems:'center'
-              
+              justifyContent: 'center',
+              alignItems: 'center'
+
             }}
           >
             <Text style={{ fontSize: 25, color: "rgb(163, 163, 194)", textAlign: 'center', }}>
               {this.state.errMsg}
-              </Text>
-            </View>
+            </Text>
+          </View>
         </Modal>
       </View>
     );

@@ -57,6 +57,25 @@ export default class AddFriendsPage extends Component {
     //console.warn(this.state.photos[0].Image);
     this.props.navigation.navigate("twoGame", { images: this.state.photos });
   };
+
+  wheelGame = async () => {
+    let res = await fetch(
+      "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/getPhotoUri",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    let json = await res.json();
+    let theJson = JSON.parse(json.d);
+    this.setState({ photos: theJson });
+    //console.warn(this.state.photos[0].Image);
+    this.props.navigation.navigate("ThreeGame", { images: this.state.photos });
+  };
+
   deleteImages = async () => {
     await fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site07/webservice.asmx/deleteImages");
     this.refreshPlayerCount();
@@ -120,13 +139,34 @@ export default class AddFriendsPage extends Component {
       }, 2500);
     }
   }
+  checkPlayersThrees = async () => {
+    await this.refreshPlayerCount();
+    if (this.state.playerCounter >= 3) {
+      if (this.state.playerCounter > 3) {
+        this.setState({ modalVisible: true, errMsg: "There Are Extra Players\nOnly First Three Will Play" })
+        this.timeOut = setTimeout(() => {
+          this.setState({ modalVisible: false })
+          this.wheelGame();
+        }, 3000);
+      }
+      else {
+        this.wheelGame();
+      }
+    }
+    else {
+      this.setState({ modalVisible: true, errMsg: "Three Players Required" })
+      this.timeOut = setTimeout(() => {
+        this.setState({ modalVisible: false })
+      }, 2500);
+    }
+  }
   render() {
     return (
 
       <View>
         <Image source={require('../images/friendsBackground.jpg')} style={styles.backgroundStyle} />
         <TouchableOpacity
-          style={{ top: HEIGHT - 200, left: WIDTHMIDDLE + 35 }}
+          style={{ top: HEIGHTMIDDLE+130 , left: WIDTHMIDDLE+80,width: 70, height: 70,position:'absolute' }}
           onPress={this.checkPlayersFours}
         >
           <Image
@@ -135,7 +175,16 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 270, left: WIDTHMIDDLE - 115, width: 70, height: 70 }}
+          style={{ top: HEIGHTMIDDLE+130, left: WIDTHMIDDLE-40, width: 60, height: 60,position:'absolute' }}
+          onPress={this.checkPlayersThrees}
+        >
+          <Image
+            style={{ width: 70, height: 70, opacity: 0.7 }}
+            source={require("../images/spinItGame.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ top: HEIGHTMIDDLE+130, left: WIDTHMIDDLE-150, width: 70, height: 70,position:'absolute' }}
           onPress={this.checkPlayersTwos}
         >
           <Image
@@ -144,7 +193,7 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 190, left: WIDTHMIDDLE - 25, width: 70, height: 70 }}
+          style={{ top: HEIGHTMIDDLE+260, left: WIDTHMIDDLE-25 , width: 70, height: 70,position:'absolute' }}
           onPress={() => { this.props.navigation.navigate("cameraPage", { refreshfunction: this.refreshPlayerCount }) }}
         >
           <Image
@@ -153,7 +202,7 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 260, left: WIDTHMIDDLE - 100, width: 70, height: 70 }}
+          style={{ top: HEIGHTMIDDLE+260, left: WIDTHMIDDLE-95 , width: 70, height: 70,position:'absolute' }}
           onPress={this.deleteImages}
         >
           <Image
@@ -162,7 +211,7 @@ export default class AddFriendsPage extends Component {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ top: HEIGHT - 331, left: WIDTHMIDDLE + 50, width: 70, height: 70 }}
+          style={{ top: HEIGHTMIDDLE+260, left: WIDTHMIDDLE + 45, width: 70, height: 70,position:'absolute' }}
           onPress={this.refreshPlayerCount}
         >
           <Image
@@ -170,7 +219,7 @@ export default class AddFriendsPage extends Component {
             source={require("../images/refreshPlayers.png")}
           />
         </TouchableOpacity>
-        <View style={{ top: HEIGHT - 450, left: WIDTHMIDDLE - 55 }}>
+        <View style={{ top: HEIGHTMIDDLE+220, left: WIDTHMIDDLE - 55,position:'absolute' }}>
           <Text>Player Count: {this.state.playerCounter}</Text>
         </View>
         <Modal

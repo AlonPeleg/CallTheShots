@@ -10,6 +10,7 @@ import Game1 from './src/Components/Game1';
 import MyCamera from './src/Components/Camera/MyCamera';
 import Game3 from './src/Components/Game3';
 import startingVideo from './src/Components/startingVideo';
+import Game2 from './src/Components/Game2';
 
 
 const stackNav = createStackNavigator(
@@ -26,6 +27,7 @@ const SwitchNav = createSwitchNavigator(
     welcomePage: HomePage,
     fourGame: Game1,
     twoGame:Game3,
+    ThreeGame:Game2,
     homeGame: stackNav
 
   }

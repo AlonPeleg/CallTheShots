@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { View, Button, Image, Dimensions } from "react-native";
+import { View, Modal, Image, Dimensions, Text } from "react-native";
 
 const tickCount = Math.floor(Math.random() * 5) + 2;
-const timevar = 0
+const timevar = 0;
 
 export default class Game2 extends Component {
     state = {
         arrowPos: 0,
-        arrowSpeed: 40
+        arrowSpeed: 40,
+        BGC: "rgba(240, 240, 241,0.2)",
+        modalVisible: false,
+        winner: ""
     };
 
     componentDidMount() {
@@ -40,11 +43,8 @@ export default class Game2 extends Component {
                 this.setState({ arrowPos: this.state.arrowPos + 10 });
                 tickCount--;
                 if (tickCount <= 0) {
-                    if (this.state.arrowPos < 180)
-                        console.warn("red won")
-                    else
-                        console.warn("yellow won")
                     clearInterval(this.interval2);
+                    this.winz();
                 }
             }, 1000);
         }, timevar + 3);
@@ -54,37 +54,55 @@ export default class Game2 extends Component {
     spinspeed = () => {
         //arrow spinning
         this.interval = setInterval(() => {
-            // Animate the upate
-            // LayoutAnimation.spring();
-            // flag = Math.floor(Math.random() * 2);
             this.setState({ arrowPos: this.state.arrowPos + this.state.arrowSpeed });
         }, 50);
 
     };
+
+    winz = () => {
+        let winnerPlayer = 0
+        let won = ((this.state.arrowPos % 360) + 28)
+        if (won >= 360)
+            won -= 360;
+        if (won < 120) {
+            this.setState({ BGC: "rgba(113, 171, 69, 0.2)" })
+            winnerPlayer = 1;
+        }
+        else if (won > 120 && won < 240) {
+            this.setState({ BGC: "rgba(91, 153, 212, 0.2)" })
+            winnerPlayer = 2;
+        }
+        else if (won == 120 || won == 240 || won == 360) {
+            console.warn("Top kek")
+        }
+        else {
+            this.setState({ BGC: "rgba(255, 190, 0, 0.2)" })
+            winnerPlayer = 3;
+        }
+        this.timeOut2 = setTimeout(() => {
+            this.setState({ modalVisible: true, winner: this.props.navigation.state.params.images[winnerPlayer - 1].Image })
+        }, 1000);
+        this.timeOut = setTimeout(() => {
+            this.props.navigation.navigate("friendsPage");
+        }, 4000);
+
+    }
     render() {
         return (
-            <View>
+            <View style={{ width: WIDTH, height: HEIGHT, backgroundColor: this.state.BGC }}>
                 <Image style={styles.wheel} source={require("../images/spinItWheel.png")} />
                 <Image
                     style={{
                         position: "absolute",
-                        top: 362,
-                        left: 128,
+                        top: 345,
+                        left: 155,
                         width: 65,
                         height: 120,
                         transform: [{ rotate: this.state.arrowPos + "deg" }]
                     }}
                     source={require("../images/arrow.png")}
                 />
-                <View style={{
-                    position: "absolute",
-                    top: 97,
-                    left: WIDTHMIDDLE+60,
-                    borderRadius: 75,
-                    width: 85,
-                    height: 85,
-                    backgroundColor: 'rgb(113,171,69)'
-                }}>
+                <View style={styles.view1}>
                     <Image
                         style={styles.imageStyle}
                         source={{
@@ -92,15 +110,7 @@ export default class Game2 extends Component {
                         }}
                     />
                 </View>
-                <View style={{
-                    position: "absolute",
-                    top: 97,
-                    left: WIDTHMIDDLE-150,
-                    borderRadius: 75,
-                    width: 85,
-                    height: 85,
-                    backgroundColor: 'rgb(255,190,0)'
-                }}>
+                <View style={styles.view2}>
                     <Image
                         style={styles.imageStyle2}
                         source={{
@@ -108,15 +118,7 @@ export default class Game2 extends Component {
                         }}
                     />
                 </View>
-                <View style={{
-                    position: "absolute",
-                    top: 97,
-                    left: WIDTHMIDDLE-45,
-                    borderRadius: 75,
-                    width: 85,
-                    height: 85,
-                    backgroundColor: 'rgb(91,153,212)'
-                }}>
+                <View style={styles.view3}>
                     <Image
                         style={styles.imageStyle3}
                         source={{
@@ -124,20 +126,35 @@ export default class Game2 extends Component {
                         }}
                     />
                 </View>
-                <Button title="check Deg" onPress={() =>
-                    console.warn(this.state.arrowPos % 360)} />
-                <Button title="Back" style={{ top: 50 }} onPress={
-                    () => {
-                        this.setState({ arrowPos: 0 })
-                        timevar = 0;
-                        tickCount = Math.floor(Math.random() * 5) + 2;
-                        this.props.navigation.navigate("friendsPage")
-                    }
-                } />
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => null}
+                >
+                    <View
+                        style={{
+                            top: 270,
+                            left: 2,
+                            width: "100%",
+                            height: "100%",
+                            alignSelf: "center",
+                        }}
+                    >
+                        <Text style={{ fontSize: 25, color: "white", textAlign: 'center', }}>
+                            You're It!
+                        </Text>
+                        <Image
+                            style={styles.winner}
+                            source={{ uri: this.state.winner }}
+                        />
+                    </View>
+                </Modal>
             </View>
         );
     }
 }
+
 const WIDTHMIDDLE = Dimensions.get("window").width / 2;
 const HEIGHTMIDDLE = Dimensions.get("window").height / 2;
 const WIDTH = Dimensions.get("window").width;
@@ -164,5 +181,39 @@ const styles = {
         width: 80,
         height: 80,
         borderRadius: 70
+    },
+    view1: {
+        position: "absolute",
+        top: 97,
+        left: WIDTHMIDDLE + 60,
+        borderRadius: 75,
+        width: 85,
+        height: 85,
+        backgroundColor: 'rgb(113,171,69)'
+    },
+    view2: {
+        position: "absolute",
+        top: 97,
+        left: WIDTHMIDDLE - 150,
+        borderRadius: 75,
+        width: 85,
+        height: 85,
+        backgroundColor: 'rgb(255,190,0)'
+    },
+    view3: {
+        position: "absolute",
+        top: 97,
+        left: WIDTHMIDDLE - 45,
+        borderRadius: 75,
+        width: 85,
+        height: 85,
+        backgroundColor: 'rgb(91,153,212)'
+    },
+    winner: {
+        width: 160,
+        height: 160,
+        marginLeft: 105,
+        marginTop: -5,
+        borderRadius: 100,
     },
 };

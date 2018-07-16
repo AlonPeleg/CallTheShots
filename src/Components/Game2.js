@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Button, Image, LayoutAnimation, Text } from "react-native";
+import { View, Button, Image, Dimensions } from "react-native";
 
 const tickCount = Math.floor(Math.random() * 5) + 2;
 const timevar = 0
@@ -76,24 +76,54 @@ export default class Game2 extends Component {
                     }}
                     source={require("../images/arrow.png")}
                 />
-                <Image
-                    style={styles.imageStyle}
-                    source={{
-                        uri: this.props.navigation.state.params.images[0].Image
-                    }}
-                />
-                <Image
-                    style={styles.imageStyle2}
-                    source={{
-                        uri: this.props.navigation.state.params.images[1].Image
-                    }}
-                />
-                <Image
-                    style={styles.imageStyle3}
-                    source={{
-                        uri: this.props.navigation.state.params.images[2].Image
-                    }}
-                />
+                <View style={{
+                    position: "absolute",
+                    top: 97,
+                    left: WIDTHMIDDLE+60,
+                    borderRadius: 75,
+                    width: 85,
+                    height: 85,
+                    backgroundColor: 'rgb(113,171,69)'
+                }}>
+                    <Image
+                        style={styles.imageStyle}
+                        source={{
+                            uri: this.props.navigation.state.params.images[0].Image
+                        }}
+                    />
+                </View>
+                <View style={{
+                    position: "absolute",
+                    top: 97,
+                    left: WIDTHMIDDLE-150,
+                    borderRadius: 75,
+                    width: 85,
+                    height: 85,
+                    backgroundColor: 'rgb(255,190,0)'
+                }}>
+                    <Image
+                        style={styles.imageStyle2}
+                        source={{
+                            uri: this.props.navigation.state.params.images[1].Image
+                        }}
+                    />
+                </View>
+                <View style={{
+                    position: "absolute",
+                    top: 97,
+                    left: WIDTHMIDDLE-45,
+                    borderRadius: 75,
+                    width: 85,
+                    height: 85,
+                    backgroundColor: 'rgb(91,153,212)'
+                }}>
+                    <Image
+                        style={styles.imageStyle3}
+                        source={{
+                            uri: this.props.navigation.state.params.images[2].Image
+                        }}
+                    />
+                </View>
                 <Button title="check Deg" onPress={() =>
                     console.warn(this.state.arrowPos % 360)} />
                 <Button title="Back" style={{ top: 50 }} onPress={
@@ -108,6 +138,10 @@ export default class Game2 extends Component {
         );
     }
 }
+const WIDTHMIDDLE = Dimensions.get("window").width / 2;
+const HEIGHTMIDDLE = Dimensions.get("window").height / 2;
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
 const styles = {
     wheel: {
         position: "absolute",
@@ -119,25 +153,16 @@ const styles = {
     imageStyle: {
         width: 80,
         height: 80,
-        position: "absolute",
-        top: 100,
-        right: 38,
         borderRadius: 70
     },
     imageStyle2: {
         width: 80,
         height: 80,
-        position: "absolute",
-        top: 100,
-        left: 38,
         borderRadius: 70
     },
     imageStyle3: {
         width: 80,
         height: 80,
-        position: "absolute",
-        top: 100,
-        left: 145,
         borderRadius: 70
     },
 };

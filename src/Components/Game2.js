@@ -12,7 +12,10 @@ export default class Game2 extends Component {
         modalVisible: false,
         winner: ""
     };
-
+    componentWillMount() {
+        timevar = 0;
+        tickCount = Math.floor(Math.random() * 5) + 2;
+    }
     componentDidMount() {
         let timez = Math.floor(Math.random() * 2000 + 2000);
         this.inty(10, 5, timez);
@@ -65,18 +68,18 @@ export default class Game2 extends Component {
         if (won >= 360)
             won -= 360;
         if (won < 120) {
-            this.setState({ BGC: "rgba(113, 171, 69, 0.2)" })
+            this.setState({ BGC: "rgba(113, 171, 69, 0.3)" })
             winnerPlayer = 1;
         }
         else if (won > 120 && won < 240) {
-            this.setState({ BGC: "rgba(91, 153, 212, 0.2)" })
+            this.setState({ BGC: "rgba(91, 153, 212, 0.3)" })
             winnerPlayer = 3;
         }
         else if (won == 120 || won == 240 || won == 360) {
             console.warn("Top kek")
         }
         else {
-            this.setState({ BGC: "rgba(255, 190, 0, 0.2)" })
+            this.setState({ BGC: "rgba(255, 190, 0, 0.3)" })
             winnerPlayer = 2;
         }
         this.timeOut2 = setTimeout(() => {
@@ -93,6 +96,16 @@ export default class Game2 extends Component {
     render() {
         return (
             <View style={{ width: WIDTH, height: HEIGHT, backgroundColor: this.state.BGC }}>
+                <Image
+                    source={require("../images/spinItBackground.png")}
+                    style={{
+                        width: WIDTH,
+                        height: HEIGHT,
+                        position: 'absolute',
+                        resizeMode: 'cover',
+                        opacity: 0.15
+                    }}
+                />
                 <Image style={styles.wheel} source={require("../images/spinItWheel.png")} />
                 <Image
                     style={{
@@ -144,7 +157,7 @@ export default class Game2 extends Component {
                             alignSelf: "center",
                         }}
                     >
-                        <Text style={{ fontSize: 25, color: "white", textAlign: 'center',}}>
+                        <Text style={{ fontSize: 25, color: "white", textAlign: 'center', }}>
                             You're Out!
                         </Text>
                         <Image

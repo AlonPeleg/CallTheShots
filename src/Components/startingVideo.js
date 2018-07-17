@@ -11,7 +11,7 @@ export default class startingVideo extends Component {
     componentDidMount(){
         this.videoTimeOut = setTimeout(() => {
             this.props.navigation.navigate("welcomePage");
-        }, 1100);
+        }, 1500);
     }
 
     render() {

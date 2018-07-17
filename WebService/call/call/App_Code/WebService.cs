@@ -59,10 +59,11 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public int getPlayers()
     {
-        cmd = new SqlCommand("select COUNT(ID) from Images", con);
-        con.Open();
-        int k = cmd.ExecuteNonQuery();
-        con.Close();
-        return k;
-    }
+		int counter=0;
+		 cmd = new SqlCommand("select COUNT(*) from Images",con);
+		 con.Open();
+		 counter = (int)cmd.ExecuteScalar();
+		 con.Close();
+		 return counter;
+	}
 }

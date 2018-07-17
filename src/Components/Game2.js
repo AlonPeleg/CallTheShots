@@ -77,6 +77,7 @@ export default class Game2 extends Component {
         }
         else if (won == 120 || won == 240 || won == 360) {
             console.warn("Top kek")
+            winnerPlayer = Math.floor(Math.random()*2)+1;
         }
         else {
             this.setState({ BGC: "rgba(255, 190, 0, 0.3)" })
